@@ -42,12 +42,14 @@ export default function SignInPage() {
         <input placeholder="E-mail" type="email"
           id="email" value={formLogin.email}
           onChange={e => uptadeFormLogin(e)}
+          data-test="email"
         />
         <input placeholder="Senha" type="password" autoComplete="new-password" 
           id="password" value={formLogin.password}
           onChange={e => uptadeFormLogin(e)}
+          test="password"
         />
-        <button>Entrar</button>
+        <button data-test="sign-in-submit" >Entrar</button>
       </form>
 
       <Link to={'/cadastro'}>

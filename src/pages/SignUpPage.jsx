@@ -25,7 +25,7 @@ export default function SignUpPage() {
     console.log('CADASTRANDO NOVO USUARIO...')
     if(valuesForm.password !== valuesForm.confirm)return alert('as senhas precisam ser iguais!');
     try{
-      const result = await axios.post('http://localhost:5000/cadastro', {name:valuesForm.name, email: valuesForm.email, password: valuesForm.password});
+      const result = await axios.post(`${import.meta.env.VITE_API_URL}`, {name:valuesForm.name, email: valuesForm.email, password: valuesForm.password});
       console.log(result);
       setValuesForm({name:'', email:'', password:'', confirm:''});
       return alert('cadastro criado com sucesso!');
@@ -44,20 +44,24 @@ export default function SignUpPage() {
         <input placeholder="Nome" type="text" 
           onChange={(e)=>updateValuesInputs(e)}
           id="name" value={valuesForm.name}
+          data-test="name"
         />
         <input placeholder="E-mail" type="email"
           onChange={(e)=>updateValuesInputs(e)}
           id="email" value={valuesForm.email}
+          data-test="email"
         />
         <input placeholder="Senha" type="password" autocomplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="password" value={valuesForm.password}
+          data-test="password"
         />
         <input placeholder="Confirme a senha" type="password" autocomplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="confirm" value={valuesForm.confirm}
+          data-test="conf-password"
         />
-        <button>Cadastrar</button>
+        <button data-test="sign-up-submit" >Cadastrar</button>
       </form>
 
       <Link to={'/'}>

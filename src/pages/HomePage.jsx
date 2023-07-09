@@ -40,8 +40,8 @@ function exit(){
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, {data.name}</h1>
-        <BiExit  onClick={exit}/>
+        <h1 data-test="user-name" >Olá, {data.name}</h1>
+        <BiExit  onClick={exit} data-test="logout"/>
       </Header>
 
       <TransactionsContainer>
@@ -50,9 +50,9 @@ function exit(){
             <ListItemContainer key={i}>
             <div>
               <span>{data.time}</span>
-              <strong>{data.description}</strong>
+              <strong data-test="registry-name">{data.description}</strong>
             </div>
-            <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'}>{data.value}</Value>
+            <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>
           </ListItemContainer>
           ))}
           
@@ -68,19 +68,19 @@ function exit(){
 
         <article>
           <strong>SALDO</strong>
-          <Value color={"positivo"}>{data.balance}</Value>
+          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance}</Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
-        <Link to={`/nova-transacao/entrada`} className="buttonLink">
+        <Link to={`/nova-transacao/entrada`} className="buttonLink" data-test="new-income">
         <button >
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
         </Link>
-        <Link to={'/nova-transacao/saida'} className="buttonLink">
+        <Link to={'/nova-transacao/saida'} className="buttonLink" data-test="new-expense">
         <button>
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>

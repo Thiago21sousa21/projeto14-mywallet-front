@@ -58,12 +58,14 @@ export default function TransactionsPage(props) {
         <input placeholder="Valor" type="text"
           id="value" value={formTransaction.value}
           onChange={e => uptadeFormTransaction(e)}
+          data-test="registry-amount-input"
         />
         <input placeholder="Descrição" type="text" 
           id="description" value={formTransaction.description}
           onChange={e => uptadeFormTransaction(e)}
+          data-test="registry-name-input"
         />
-        <button>Salvar TRANSAÇÃO</button>
+        <button data-test="registry-save">Salvar TRANSAÇÃO</button>
       </form>
     </TransactionsContainer>
   )
