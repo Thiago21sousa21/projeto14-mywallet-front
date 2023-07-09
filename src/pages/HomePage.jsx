@@ -22,7 +22,7 @@ export default function HomePage(props) {
 
 useEffect(()=>{
   if(!token)return navigate('/');
-  axios.get('http://localhost:5000/home', config)
+  axios.get(`${import.meta.env.VITE_API_URL}home`, config)
     .then(res=>{
       console.log(res);
       setData(res.data);
