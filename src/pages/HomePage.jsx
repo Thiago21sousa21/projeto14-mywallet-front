@@ -10,7 +10,7 @@ export default function HomePage(props) {
   const {setData, data } = props;
   const navigate = useNavigate();
   let {token} = useContext(CONTEXT);
-  console.log(token, ' so pra ver se esse contexto presta')
+  //console.log(token, ' so pra ver se esse contexto presta')
   if(!token){
     token = localStorage.getItem('localToken');
   }
@@ -28,16 +28,20 @@ useEffect(()=>{
       setData(res.data);
     })
     .catch(erro=>console.log(erro));
-
-
 },[]);
+
+function exit(){
+  token = '';
+  localStorage.removeItem('localToken');
+  navigate('/');
+}
 
   if(data==='loading...')return data;
   return (
     <HomeContainer>
       <Header>
         <h1>Olá, {data.name}</h1>
-        <BiExit />
+        <BiExit  onClick={exit}/>
       </Header>
 
       <TransactionsContainer>
