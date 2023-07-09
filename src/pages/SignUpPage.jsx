@@ -11,7 +11,7 @@ export default function SignUpPage() {
 
   function updateValuesInputs(event){
     const {id, value}=event.target;
-    console.log(event.target);
+    //console.log(event.target);
     //const newValuesForm = {...valuesForm, [id]: value}
     const newValuesForm = {...valuesForm};
     newValuesForm[id] = value;
@@ -23,11 +23,15 @@ export default function SignUpPage() {
   async function sendData (event){
     event.preventDefault();
     console.log('CADASTRANDO NOVO USUARIO...')
+    if(valuesForm.password !== valuesForm.confirm)return alert('as senhas precisam ser iguais!');
     try{
-      const result = await axios.post('http://localhost:5000/cadastro', valuesForm);
+      const result = await axios.post('http://localhost:5000/cadastro', {name:valuesForm.name, email: valuesForm.email, password: valuesForm.password});
       console.log(result);
+      setValuesForm({name:'', email:'', password:'', confirm:''});
+      return alert('cadastro criado com sucesso!');
     }catch(erro){
-      console.log(erro);
+      console.log('falhou o cadastro', erro)
+      alert(erro.response.data);
     }
   }
 

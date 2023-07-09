@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components"
+import styled from "styled-components";
+import axios from "axios";
+import CONTEXT from "../context/context";
 
-export default function TransactionsPage() {
+export default function TransactionsPage(props) {
+  const {setData} = props;
   const [formTransaction, setFormTransaction] = useState({value:'', description:''});
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
+  let {token} = useContext(CONTEXT);
+  if(!token)token = localStorage.getItem('localToken');
 
+  useEffect(()=>{
+    if(!token)return navigate('/');
+  },[]);
+  //  console.log(params);
+  const config = {
+    headers:{
+      authorization: `Bearer ${token}`
+    }
+  }
 
   function uptadeFormTransaction(event){
     const {id, value} = event.target;
@@ -21,13 +34,20 @@ export default function TransactionsPage() {
     event.preventDefault();
     console.log(' FAZENDO TRANSAÇÃO...')
     try{
-      const result = await axios.post(`http://localhost:5000/nova-transacao/${params.tipo}`, formLogin);
-      console.log('SUCESSO NO LOGIN',result);
+      const result = await axios.post(`http://localhost:5000/nova-transacao/${params.tipo}`, formTransaction, config);
+      console.log('resultado da transação',result);
+      setFormTransaction({email:'', password:''});
+
+      const  atualizaTransactions = await axios.get('http://localhost:5000/home', config)
+      console.log(atualizaTransactions,' ESTE É O ATUALIZA TRANSACTIONS');
+      setData(atualizaTransactions.data);
+      console.log(atualizaTransactions.data);
+      navigate('/home');
+      console.log(' DEU CERTO A TRANSAÇÃO')
+
     }catch(erro){
       console.log(erro);
     }
-    setFormLogin({email:'', password:''});
-    navigate('/home');
   }
   
 

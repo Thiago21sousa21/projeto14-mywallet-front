@@ -2,51 +2,76 @@ import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import CONTEXT from "../context/context";
 
-export default function HomePage() {
-
-  function novaEntrada(){
-    alert('funcionando!');
-    axios.post('localhost:5000/home')
+export default function HomePage(props) {
+  const {setData, data } = props;
+  const navigate = useNavigate();
+  let {token} = useContext(CONTEXT);
+  console.log(token, ' so pra ver se esse contexto presta')
+  if(!token){
+    token = localStorage.getItem('localToken');
+  }
+  const config = {
+    headers:{
+      authorization: `Bearer ${token}`
+    }
   }
 
+useEffect(()=>{
+  if(!token)return navigate('/');
+  axios.get('http://localhost:5000/home', config)
+    .then(res=>{
+      console.log(res);
+      setData(res.data);
+    })
+    .catch(erro=>console.log(erro));
+
+
+},[]);
+
+  if(data==='loading...')return data;
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1>Olá, {data.name}</h1>
         <BiExit />
       </Header>
 
       <TransactionsContainer>
         <ul>
-          <ListItemContainer>
+          {data.transactions.map((data, i) =>(
+            <ListItemContainer key={i}>
             <div>
-              <span>30/11</span>
-              <strong>Almoço mãe</strong>
+              <span>{data.time}</span>
+              <strong>{data.description}</strong>
             </div>
-            <Value color={"negativo"}>120,00</Value>
+            <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'}>{data.value}</Value>
           </ListItemContainer>
+          ))}
+          
 
-          <ListItemContainer>
+          {/* <ListItemContainer>
             <div>
               <span>15/11</span>
               <strong>Salário</strong>
             </div>
             <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer>
+          </ListItemContainer> */}
         </ul>
 
         <article>
-          <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <strong>SALDO</strong>
+          <Value color={"positivo"}>{data.balance}</Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
         <Link to={`/nova-transacao/entrada`} className="buttonLink">
-        <button onClick={novaEntrada}>
+        <button >
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
