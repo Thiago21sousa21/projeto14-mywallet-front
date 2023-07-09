@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import CONTEXT from "../context/context";
+import dayjs from "dayjs";
 
 export default function HomePage(props) {
   const {setData, data } = props;
@@ -49,7 +50,7 @@ function exit(){
           {data.transactions.map((data, i) =>(
             <ListItemContainer key={i}>
             <div>
-              <span>{data.time}</span>
+              <span>{dayjs(data.time).format('DD/MM')}</span>
               <strong data-test="registry-name">{data.description}</strong>
             </div>
             <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>

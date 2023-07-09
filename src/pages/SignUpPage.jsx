@@ -54,12 +54,15 @@ export default function SignUpPage() {
         <input placeholder="Senha" type="password" autocomplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="password" value={valuesForm.password}
+          minLength={3}
           data-test="password"
         />
         <input placeholder="Confirme a senha" type="password" autocomplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="confirm" value={valuesForm.confirm}
           data-test="conf-password"
+          minLength={3}
+
         />
         <button data-test="sign-up-submit" >Cadastrar</button>
       </form>
