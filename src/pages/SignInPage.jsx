@@ -22,7 +22,7 @@ export default function SignInPage() {
     event.preventDefault();
     console.log(' FAZENDO LOGIN...', formLogin)
     try{
-      const result = await axios.post(`${import.meta.env.VITE_API_URL}`, formLogin);
+      const result = await axios.post(`${import.meta.env.VITE_API_URL}/`, formLogin);
       console.log('SUCESSO NO LOGIN',result);
       localStorage.setItem('localToken', result.data.token);
       token = localStorage.getItem('localToken');

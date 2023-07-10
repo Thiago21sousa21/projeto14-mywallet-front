@@ -34,11 +34,11 @@ export default function TransactionsPage(props) {
     event.preventDefault();
     console.log(' FAZENDO TRANSAÇÃO...')
     try{
-      const result = await axios.post(`${import.meta.env.VITE_API_URL}nova-transacao/${params.tipo}`, formTransaction, config);
+      const result = await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
       console.log('resultado da transação',result);
       setFormTransaction({email:'', password:''});
 
-      const  atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}home`, config)
+      const  atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       console.log(atualizaTransactions,' ESTE É O ATUALIZA TRANSACTIONS');
       setData(atualizaTransactions.data);
       console.log(atualizaTransactions.data);
