@@ -51,13 +51,13 @@ export default function SignUpPage() {
           id="email" value={valuesForm.email}
           data-test="email"
         />
-        <input placeholder="Senha" type="password" autocomplete="new-password" 
+        <input placeholder="Senha" type="password" autoComplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="password" value={valuesForm.password}
           minLength={3}
           data-test="password"
         />
-        <input placeholder="Confirme a senha" type="password" autocomplete="new-password" 
+        <input placeholder="Confirme a senha" type="password" autoComplete="new-password" 
           onChange={(e)=>updateValuesInputs(e)}
           id="confirm" value={valuesForm.confirm}
           data-test="conf-password"

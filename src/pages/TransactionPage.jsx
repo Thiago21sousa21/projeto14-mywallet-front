@@ -46,7 +46,7 @@ export default function TransactionsPage(props) {
       console.log(' DEU CERTO A TRANSAÇÃO')
 
     }catch(erro){
-      console.log(erro);
+      alert(erro.response.data);
     }
   }
   
@@ -55,10 +55,11 @@ export default function TransactionsPage(props) {
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
       <form onSubmit={(e)=>sendDataTransaction(e)}>
-        <input placeholder="Valor" type="text"
+        <input placeholder="Valor" type="number"
           id="value" value={formTransaction.value}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-amount-input"
+        
         />
         <input placeholder="Descrição" type="text" 
           id="description" value={formTransaction.description}
