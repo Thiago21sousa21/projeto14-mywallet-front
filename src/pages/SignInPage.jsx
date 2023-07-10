@@ -48,7 +48,7 @@ export default function SignInPage() {
         <input placeholder="Senha" type="password" autoComplete="new-password" 
           id="password" value={formLogin.password}
           onChange={e => uptadeFormLogin(e)}
-          test="password"
+          data-test="password"
         />
         <button data-test="sign-in-submit" >Entrar</button>
       </form>
