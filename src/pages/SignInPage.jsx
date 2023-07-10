@@ -9,6 +9,7 @@ export default function SignInPage() {
   const [formLogin, setFormLogin] = useState({email:'', password:''});
   const navigate = useNavigate();
   let {token} = useContext(CONTEXT);
+  console.log(import.meta.env.VITE_API_URL);
 
   function uptadeFormLogin(event){
     const {id, value} = event.target;
