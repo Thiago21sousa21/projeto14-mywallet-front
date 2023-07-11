@@ -38,10 +38,6 @@ function exit(){
 }
 
   if(data==='loading...')return data;
-  console.log('normal',data.transactions);
-  const inverseTransactions = [...data.transactions].reverse();
-  console.log( 'inverso', inverseTransactions);
-
   return (
     <HomeContainer>
       <Header>
@@ -51,7 +47,7 @@ function exit(){
 
       <TransactionsContainer>
         <ul>
-          {inverseTransactions.map((data, i) =>(
+          {data.transactions.map((data, i) =>(
             <ListItemContainer key={i}>
             <div>
               <span>{dayjs(data.time).format('DD/MM')}</span>
