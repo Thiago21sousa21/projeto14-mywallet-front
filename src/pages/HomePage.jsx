@@ -60,20 +60,10 @@ function exit(){
             <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>
           </ListItemContainer>
           ))}
-          
-
-          {/* <ListItemContainer>
-            <div>
-              <span>15/11</span>
-              <strong>Salário</strong>
-            </div>
-            <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer> */}
         </ul>
-
         <article>
           <strong>SALDO</strong>
-          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance}</Value>
+          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance.toFixed(2).replace('.',',').replace('-','')}</Value>
         </article>
       </TransactionsContainer>
 
@@ -112,6 +102,8 @@ const Header = styled.header`
   color: white;
 `
 const TransactionsContainer = styled.article`
+  //border: 1px solid;
+  overflow-y: auto;
   flex-grow: 1;
   background-color: #fff;
   color: #000;
