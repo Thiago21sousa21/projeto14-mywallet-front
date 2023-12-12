@@ -10,7 +10,7 @@ export default function TransactionsPage(props) {
   const navigate = useNavigate();
   const params = useParams();
   let { token } = useContext(CONTEXT);
-  if (!token) token = localStorage.getItem('localToken');
+  if (!token) token = localStorage.getItem('localToken')
 
   useEffect(() => {
     if (!token) return navigate('/');
@@ -32,8 +32,8 @@ export default function TransactionsPage(props) {
     event.preventDefault();
     console.log(' FAZENDO TRANSAÇÃO...')
     try {
-      const result = await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
-      setFormTransaction({ email: '', password: '' });
+      await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
+      setFormTransaction({ value: '', description: '' });
 
       const atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       setData(atualizaTransactions.data);
@@ -43,7 +43,6 @@ export default function TransactionsPage(props) {
     }
   }
 
-
   return (
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
@@ -52,7 +51,6 @@ export default function TransactionsPage(props) {
           id="value" value={formTransaction.value}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-amount-input"
-
         />
         <input placeholder="Descrição" type="text"
           id="description" value={formTransaction.description}
