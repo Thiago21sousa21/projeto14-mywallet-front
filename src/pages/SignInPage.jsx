@@ -1,15 +1,17 @@
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
 import MyWalletLogo from "../components/MyWalletLogo"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { ThreeDots } from 'react-loader-spinner'
+import CONTEXT from "../context/context";
 
 
 export default function SignInPage() {
   const [formLogin, setFormLogin] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { setToken } = useContext(CONTEXT)
 
   function uptadeFormLogin(event) {
     const { id, value } = event.target;
@@ -21,10 +23,10 @@ export default function SignInPage() {
   async function sendDataLogin(event) {
     event.preventDefault();
     setLoading(true);
-    console.log(' FAZENDO LOGIN...')
     try {
       const result = await axios.post(`${import.meta.env.VITE_API_URL}/`, formLogin);
       setLoading(false);
+      setToken(result.data.token)
       localStorage.setItem('localToken', result.data.token);
       setFormLogin({ email: '', password: '' });
       navigate('/home');

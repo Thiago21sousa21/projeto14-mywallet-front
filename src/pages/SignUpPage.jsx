@@ -23,10 +23,11 @@ export default function SignUpPage() {
 
   async function sendData(event) {
     event.preventDefault();
-    console.log('CADASTRANDO NOVO USUARIO...')
+    setLoading(true);
     if (valuesForm.password !== valuesForm.confirm) return alert('as senhas precisam ser iguais!');
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
+      setLoading(false);
       setValuesForm({ name: '', email: '', password: '', confirm: '' });
       alert('cadastro criado com sucesso! Agora é so fazer login!');
       navigate('/')

@@ -23,7 +23,6 @@ export default function HomePage(props) {
     if (!token) return navigate('/');
     axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       .then(res => {
-        console.log(res);
         setData(res.data);
       })
       .catch(erro => console.log(erro));
