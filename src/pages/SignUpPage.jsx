@@ -22,8 +22,7 @@ export default function SignUpPage() {
     console.log('CADASTRANDO NOVO USUARIO...')
     if (valuesForm.password !== valuesForm.confirm) return alert('as senhas precisam ser iguais!');
     try {
-      const result = await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
-      console.log(result);
+      await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
       setValuesForm({ name: '', email: '', password: '', confirm: '' });
       return alert('cadastro criado com sucesso!');
     } catch (erro) {
