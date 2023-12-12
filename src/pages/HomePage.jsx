@@ -50,13 +50,25 @@ export default function HomePage(props) {
                 <span>{dayjs(data.time).format('DD/MM')}</span>
                 <strong data-test="registry-name">{data.description}</strong>
               </div>
-              <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>
+              <Value
+                $color={data.typeTransaction === 'saida' ? "negative" : 'positive'}
+                data-test="registry-amount">
+                {
+                  data.value
+                }
+              </Value>
             </ListItemContainer>
           ))}
         </ul>
         <article>
           <strong>SALDO</strong>
-          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance.toFixed(2).replace('.', ',').replace('-', '')}</Value>
+          <Value
+            $color={data.balance >= 0 ? 'positive' : 'negative'}
+            data-test="total-amount">
+            {
+              data.balance.toFixed(2).replace('.', ',').replace('-', '')
+            }
+          </Value>
         </article>
       </TransactionsContainer>
 
@@ -136,7 +148,7 @@ const ButtonsContainer = styled.section`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+  color: ${(props) => (props.$color === "positive" ? "green" : "red")};
 `
 const ListItemContainer = styled.li`
   display: flex;

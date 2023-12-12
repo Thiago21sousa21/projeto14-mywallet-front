@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import CONTEXT from "../context/context";
+import { ThreeDots } from 'react-loader-spinner'
+
 
 export default function TransactionsPage(props) {
   const { setData } = props;
@@ -10,6 +12,8 @@ export default function TransactionsPage(props) {
   const navigate = useNavigate();
   const params = useParams();
   let { token } = useContext(CONTEXT);
+  const [loading, setLoading] = useState(false);
+
   if (!token) token = localStorage.getItem('localToken')
 
   useEffect(() => {
@@ -30,11 +34,11 @@ export default function TransactionsPage(props) {
 
   async function sendDataTransaction(event) {
     event.preventDefault();
-    console.log(' FAZENDO TRANSAÇÃO...')
+    setLoading(true);
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
       setFormTransaction({ value: '', description: '' });
-
+      setLoading(false);
       const atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       setData(atualizaTransactions.data);
       navigate('/home');
@@ -57,7 +61,10 @@ export default function TransactionsPage(props) {
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-name-input"
         />
-        <button data-test="registry-save">Salvar TRANSAÇÃO</button>
+
+        {loading ? <ThreeDots /> : <button data-test="registry-save">Salvar TRANSAÇÃO</button>}
+
+
       </form>
     </TransactionsContainer>
   )
