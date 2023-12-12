@@ -8,74 +8,72 @@ import CONTEXT from "../context/context";
 import dayjs from "dayjs";
 
 export default function HomePage(props) {
-  const {setData, data } = props;
+  const { setData, data } = props;
   const navigate = useNavigate();
-  let {token} = useContext(CONTEXT);
-  //console.log(token, ' so pra ver se esse contexto presta')
-  if(!token){
-    token = localStorage.getItem('localToken');
-  }
+  let { token } = useContext(CONTEXT);
+  if (!token) token = localStorage.getItem('localToken')
+
   const config = {
-    headers:{
+    headers: {
       authorization: `Bearer ${token}`
     }
   }
 
-useEffect(()=>{
-  if(!token)return navigate('/');
-  axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
-    .then(res=>{
-      console.log(res);
-      setData(res.data);
-    })
-    .catch(erro=>console.log(erro));
-},[]);
+  useEffect(() => {
+    if (!token) return navigate('/');
+    axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
+      .then(res => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch(erro => console.log(erro));
+  }, []);
 
-function exit(){
-  token = '';
-  localStorage.removeItem('localToken');
-  navigate('/');
-}
+  function exit() {
+    token = '';
+    localStorage.removeItem('localToken');
+    navigate('/');
+  }
 
-  if(data==='loading...')return data;
+  if (data === 'loading...') return data;
   return (
     <HomeContainer>
       <Header>
         <h1 data-test="user-name" >Olá, {data.name}</h1>
-        <BiExit  onClick={exit} data-test="logout"/>
+        <BiExit onClick={exit} data-test="logout" />
       </Header>
 
       <TransactionsContainer>
         <ul>
-          {data.transactions.map((data, i) =>(
+          {data.transactions.map((data, i) => (
             <ListItemContainer key={i}>
-            <div>
-              <span>{dayjs(data.time).format('DD/MM')}</span>
-              <strong data-test="registry-name">{data.description}</strong>
-            </div>
-            <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>
-          </ListItemContainer>
+              <div>
+                <span>{dayjs(data.time).format('DD/MM')}</span>
+                <strong data-test="registry-name">{data.description}</strong>
+              </div>
+              <Value color={data.tipo === 'saida' ? "negativo" : 'positivo'} data-test="registry-amount">{data.value}</Value>
+            </ListItemContainer>
           ))}
         </ul>
         <article>
           <strong>SALDO</strong>
-          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance.toFixed(2).replace('.',',').replace('-','')}</Value>
+          <Value color={data.balance >= 0 ? 'positivo' : 'negativo'} data-test="total-amount">{data.balance.toFixed(2).replace('.', ',').replace('-', '')}</Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
         <Link to={`/nova-transacao/entrada`} className="buttonLink" data-test="new-income">
-        <button >
-          <AiOutlinePlusCircle />
-          <p>Nova <br /> entrada</p>
-        </button>
+          <button >
+            <AiOutlinePlusCircle />
+            <p>Nova <br /> entrada</p>
+          </button>
         </Link>
         <Link to={'/nova-transacao/saida'} className="buttonLink" data-test="new-expense">
-        <button>
-          <AiOutlineMinusCircle />
-          <p>Nova <br />saída</p>
-        </button>
+          <button>
+            <AiOutlineMinusCircle />
+            <p>Nova <br />saída</p>
+          </button>
         </Link>
       </ButtonsContainer>
 

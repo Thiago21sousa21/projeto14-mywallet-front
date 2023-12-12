@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react";
 import axios from "axios";
+import { ThreeDots } from 'react-loader-spinner'
+
 
 export default function SignUpPage() {
   const [valuesForm, setValuesForm] = useState({ name: '', email: '', password: '', confirm: '' });
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -24,7 +28,8 @@ export default function SignUpPage() {
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
       setValuesForm({ name: '', email: '', password: '', confirm: '' });
-      return alert('cadastro criado com sucesso!');
+      alert('cadastro criado com sucesso! Agora é so fazer login!');
+      navigate('/')
     } catch (erro) {
       console.log('falhou o cadastro', erro)
       alert(erro.response.data);
@@ -60,7 +65,9 @@ export default function SignUpPage() {
           minLength={3}
 
         />
-        <button data-test="sign-up-submit" >Cadastrar</button>
+
+        {loading ? <ThreeDots /> : <button data-test="sign-up-submit" >Cadastrar</button>}
+
       </form>
 
       <Link to={'/'}>

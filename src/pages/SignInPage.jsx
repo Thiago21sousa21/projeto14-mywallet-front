@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router-dom"
 import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react";
 import axios from "axios";
+import { ThreeDots } from 'react-loader-spinner'
+
 
 export default function SignInPage() {
   const [formLogin, setFormLogin] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   function uptadeFormLogin(event) {
     const { id, value } = event.target;
@@ -17,10 +20,11 @@ export default function SignInPage() {
 
   async function sendDataLogin(event) {
     event.preventDefault();
+    setLoading(true);
     console.log(' FAZENDO LOGIN...')
     try {
       const result = await axios.post(`${import.meta.env.VITE_API_URL}/`, formLogin);
-      console.log('SUCESSO NO LOGIN');
+      setLoading(false);
       localStorage.setItem('localToken', result.data.token);
       setFormLogin({ email: '', password: '' });
       navigate('/home');
@@ -43,7 +47,9 @@ export default function SignInPage() {
           onChange={e => uptadeFormLogin(e)}
           data-test="password"
         />
-        <button data-test="sign-in-submit" >Entrar</button>
+
+        {loading ? <ThreeDots /> : <button data-test="sign-in-submit" >Entrar</button>}
+
       </form>
 
       <Link to={'/cadastro'}>
