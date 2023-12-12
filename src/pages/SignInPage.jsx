@@ -6,34 +6,30 @@ import axios from "axios";
 import CONTEXT from "../context/context";
 
 export default function SignInPage() {
-  const [formLogin, setFormLogin] = useState({email:'', password:''});
+  const [formLogin, setFormLogin] = useState({ email: '', password: '' });
   const navigate = useNavigate();
-  let {token} = useContext(CONTEXT);
-  console.log(import.meta.env.VITE_API_URL);
+  let { token } = useContext(CONTEXT);
 
-  function uptadeFormLogin(event){
-    const {id, value} = event.target;
-    const newFormLogin = {...formLogin};
+  function uptadeFormLogin(event) {
+    const { id, value } = event.target;
+    const newFormLogin = { ...formLogin };
     newFormLogin[id] = value;
     setFormLogin(newFormLogin);
-    //console.log(newFormLogin);
   }
 
-  async function sendDataLogin (event){
+  async function sendDataLogin(event) {
     event.preventDefault();
-    console.log(' FAZENDO LOGIN...', formLogin)
-    try{
+    console.log(' FAZENDO LOGIN...')
+    try {
       const result = await axios.post(`${import.meta.env.VITE_API_URL}/`, formLogin);
-      console.log('SUCESSO NO LOGIN',result);
+      console.log('SUCESSO NO LOGIN', result);
       localStorage.setItem('localToken', result.data.token);
       token = localStorage.getItem('localToken');
-      console.log(token);
-      setFormLogin({email:'', password:''});
+      setFormLogin({ email: '', password: '' });
       navigate('/home');
-    }catch(erro){
+    } catch (erro) {
       alert(erro.response.data);
     }
-
   }
 
   return (
@@ -45,7 +41,7 @@ export default function SignInPage() {
           onChange={e => uptadeFormLogin(e)}
           data-test="email"
         />
-        <input placeholder="Senha" type="password" autoComplete="new-password" 
+        <input placeholder="Senha" type="password" autoComplete="new-password"
           id="password" value={formLogin.password}
           onChange={e => uptadeFormLogin(e)}
           data-test="password"

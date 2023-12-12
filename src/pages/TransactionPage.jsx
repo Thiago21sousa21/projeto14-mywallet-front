@@ -5,63 +5,61 @@ import axios from "axios";
 import CONTEXT from "../context/context";
 
 export default function TransactionsPage(props) {
-  const {setData} = props;
-  const [formTransaction, setFormTransaction] = useState({value:'', description:''});
+  const { setData } = props;
+  const [formTransaction, setFormTransaction] = useState({ value: '', description: '' });
   const navigate = useNavigate();
   const params = useParams();
-  let {token} = useContext(CONTEXT);
-  if(!token)token = localStorage.getItem('localToken');
+  let { token } = useContext(CONTEXT);
+  if (!token) token = localStorage.getItem('localToken');
 
-  useEffect(()=>{
-    if(!token)return navigate('/');
-  },[]);
-  //  console.log(params);
+  useEffect(() => {
+    if (!token) return navigate('/');
+  }, []);
   const config = {
-    headers:{
+    headers: {
       authorization: `Bearer ${token}`
     }
   }
 
-  function uptadeFormTransaction(event){
-    const {id, value} = event.target;
-    const newFormTransaction = {...formTransaction};
+  function uptadeFormTransaction(event) {
+    const { id, value } = event.target;
+    const newFormTransaction = { ...formTransaction };
     newFormTransaction[id] = value;
     setFormTransaction(newFormTransaction);
-    //console.log(newFormTransation);
   }
 
-  async function sendDataTransaction (event){
+  async function sendDataTransaction(event) {
     event.preventDefault();
     console.log(' FAZENDO TRANSAÇÃO...')
-    try{
+    try {
       const result = await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
-      console.log('resultado da transação',result);
-      setFormTransaction({email:'', password:''});
+      console.log('resultado da transação', result);
+      setFormTransaction({ email: '', password: '' });
 
-      const  atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
-      console.log(atualizaTransactions,' ESTE É O ATUALIZA TRANSACTIONS');
+      const atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
+      console.log(atualizaTransactions, ' ESTE É O ATUALIZA TRANSACTIONS');
       setData(atualizaTransactions.data);
       console.log(atualizaTransactions.data);
       navigate('/home');
       console.log(' DEU CERTO A TRANSAÇÃO')
 
-    }catch(erro){
+    } catch (erro) {
       alert(erro.response.data);
     }
   }
-  
+
 
   return (
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
-      <form onSubmit={(e)=>sendDataTransaction(e)}>
+      <form onSubmit={(e) => sendDataTransaction(e)}>
         <input placeholder="Valor" type="number"
           id="value" value={formTransaction.value}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-amount-input"
-        
+
         />
-        <input placeholder="Descrição" type="text" 
+        <input placeholder="Descrição" type="text"
           id="description" value={formTransaction.description}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-name-input"
