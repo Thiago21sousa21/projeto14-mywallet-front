@@ -47,24 +47,27 @@ export default function SignUpPage() {
           onChange={(e) => updateValuesInputs(e)}
           id="name" value={valuesForm.name}
           data-test="name"
+          required
         />
         <input placeholder="E-mail" type="email"
           onChange={(e) => updateValuesInputs(e)}
           id="email" value={valuesForm.email}
           data-test="email"
+          required
         />
         <input placeholder="Senha" type="password" autoComplete="new-password"
           onChange={(e) => updateValuesInputs(e)}
           id="password" value={valuesForm.password}
           minLength={3}
           data-test="password"
+          required
         />
         <input placeholder="Confirme a senha" type="password" autoComplete="new-password"
           onChange={(e) => updateValuesInputs(e)}
           id="confirm" value={valuesForm.confirm}
           data-test="conf-password"
           minLength={3}
-
+          required
         />
 
         {loading ? <ThreeDots /> : <button data-test="sign-up-submit" >Cadastrar</button>}

@@ -55,11 +55,13 @@ export default function TransactionsPage(props) {
           id="value" value={formTransaction.value}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-amount-input"
+          required
         />
         <input placeholder="Descrição" type="text"
           id="description" value={formTransaction.description}
           onChange={e => uptadeFormTransaction(e)}
           data-test="registry-name-input"
+          required
         />
 
         {loading ? <ThreeDots /> : <button data-test="registry-save">Salvar TRANSAÇÃO</button>}
