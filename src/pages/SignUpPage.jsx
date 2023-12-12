@@ -5,31 +5,28 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function SignUpPage() {
-  const [valuesForm, setValuesForm] = useState({name:'', email:'', password:'', confirm:''}) ;
+  const [valuesForm, setValuesForm] = useState({ name: '', email: '', password: '', confirm: '' });
 
 
 
-  function updateValuesInputs(event){
-    const {id, value}=event.target;
-    //console.log(event.target);
-    //const newValuesForm = {...valuesForm, [id]: value}
-    const newValuesForm = {...valuesForm};
+  function updateValuesInputs(event) {
+    const { id, value } = event.target;
+    const newValuesForm = { ...valuesForm };
     newValuesForm[id] = value;
-    //console.log(newValuesForm);
     setValuesForm(newValuesForm);
   }
 
 
-  async function sendData (event){
+  async function sendData(event) {
     event.preventDefault();
     console.log('CADASTRANDO NOVO USUARIO...')
-    if(valuesForm.password !== valuesForm.confirm)return alert('as senhas precisam ser iguais!');
-    try{
-      const result = await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, {name:valuesForm.name, email: valuesForm.email, password: valuesForm.password});
+    if (valuesForm.password !== valuesForm.confirm) return alert('as senhas precisam ser iguais!');
+    try {
+      const result = await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
       console.log(result);
-      setValuesForm({name:'', email:'', password:'', confirm:''});
+      setValuesForm({ name: '', email: '', password: '', confirm: '' });
       return alert('cadastro criado com sucesso!');
-    }catch(erro){
+    } catch (erro) {
       console.log('falhou o cadastro', erro)
       alert(erro.response.data);
     }
@@ -41,24 +38,24 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={e => sendData(e)}>
         <MyWalletLogo />
-        <input placeholder="Nome" type="text" 
-          onChange={(e)=>updateValuesInputs(e)}
+        <input placeholder="Nome" type="text"
+          onChange={(e) => updateValuesInputs(e)}
           id="name" value={valuesForm.name}
           data-test="name"
         />
         <input placeholder="E-mail" type="email"
-          onChange={(e)=>updateValuesInputs(e)}
+          onChange={(e) => updateValuesInputs(e)}
           id="email" value={valuesForm.email}
           data-test="email"
         />
-        <input placeholder="Senha" type="password" autoComplete="new-password" 
-          onChange={(e)=>updateValuesInputs(e)}
+        <input placeholder="Senha" type="password" autoComplete="new-password"
+          onChange={(e) => updateValuesInputs(e)}
           id="password" value={valuesForm.password}
           minLength={3}
           data-test="password"
         />
-        <input placeholder="Confirme a senha" type="password" autoComplete="new-password" 
-          onChange={(e)=>updateValuesInputs(e)}
+        <input placeholder="Confirme a senha" type="password" autoComplete="new-password"
+          onChange={(e) => updateValuesInputs(e)}
           id="confirm" value={valuesForm.confirm}
           data-test="conf-password"
           minLength={3}
