@@ -1,9 +1,14 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-alert */
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-extraneous-dependencies */
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from 'react-loader-spinner'
+import MyWalletLogo from "../components/MyWalletLogo"
 
 
 export default function SignUpPage() {
@@ -67,7 +72,7 @@ export default function SignUpPage() {
         {loading ? <ThreeDots /> : <button data-test="sign-up-submit" >Cadastrar</button>}
       </form>
 
-      <Link to={'/'}>
+      <Link to="/">
         Já tem uma conta? Entre agora!
       </Link>
     </SingUpContainer>

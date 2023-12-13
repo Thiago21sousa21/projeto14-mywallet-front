@@ -1,10 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import CONTEXT from "../context/context";
-import { ThreeDots } from 'react-loader-spinner'
-
+/* eslint-disable consistent-return */
+/* eslint-disable no-alert */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/prop-types */
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import { ThreeDots } from 'react-loader-spinner';
+import CONTEXT from '../context/context';
 
 export default function TransactionsPage(props) {
   const { setData } = props;
@@ -14,7 +19,7 @@ export default function TransactionsPage(props) {
   let { token } = useContext(CONTEXT);
   const [loading, setLoading] = useState(false);
 
-  if (!token) token = localStorage.getItem('localToken')
+  if (!token) token = localStorage.getItem('localToken');
 
   useEffect(() => {
     if (!token) return navigate('/');
@@ -22,9 +27,9 @@ export default function TransactionsPage(props) {
 
   const config = {
     headers: {
-      authorization: `Bearer ${token}`
-    }
-  }
+      authorization: `Bearer ${token}`,
+    },
+  };
 
   function uptadeFormTransaction(event) {
     const { id, value } = event.target;
@@ -40,7 +45,7 @@ export default function TransactionsPage(props) {
       await axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, formTransaction, config);
       setFormTransaction({ value: '', description: '' });
       setLoading(false);
-      const atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
+      const atualizaTransactions = await axios.get(`${import.meta.env.VITE_API_URL}/home`, config);
       setData(atualizaTransactions.data);
       navigate('/home');
     } catch (erro) {
@@ -52,22 +57,28 @@ export default function TransactionsPage(props) {
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
       <form onSubmit={(e) => sendDataTransaction(e)}>
-        <input placeholder="Valor" type="number"
-          id="value" value={formTransaction.value}
-          onChange={e => uptadeFormTransaction(e)}
+        <input
+          placeholder="Valor"
+          type="number"
+          id="value"
+          value={formTransaction.value}
+          onChange={(e) => uptadeFormTransaction(e)}
           data-test="registry-amount-input"
           required
         />
-        <input placeholder="Descrição" type="text"
-          id="description" value={formTransaction.description}
-          onChange={e => uptadeFormTransaction(e)}
+        <input
+          placeholder="Descrição"
+          type="text"
+          id="description"
+          value={formTransaction.description}
+          onChange={(e) => uptadeFormTransaction(e)}
           data-test="registry-name-input"
           required
         />
         {loading ? <ThreeDots /> : <button data-test="registry-save">Salvar TRANSAÇÃO</button>}
       </form>
     </TransactionsContainer>
-  )
+  );
 }
 
 const TransactionsContainer = styled.main`
@@ -81,4 +92,4 @@ const TransactionsContainer = styled.main`
     align-self: flex-start;
     margin-bottom: 40px;
   }
-`
+`;

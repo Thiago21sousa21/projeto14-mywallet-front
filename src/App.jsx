@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable react/react-in-jsx-scope */
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import styled from "styled-components"
+import { useState } from "react"
 import HomePage from "./pages/HomePage"
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
 import TransactionsPage from "./pages/TransactionPage"
-import { useState } from "react"
 import CONTEXT from './context/context'
 
 
