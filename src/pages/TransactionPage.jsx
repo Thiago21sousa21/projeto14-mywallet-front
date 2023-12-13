@@ -9,14 +9,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
-import CONTEXT from '../context/context';
+import generalContexts from '../context/context';
 
 export default function TransactionsPage(props) {
   const { setData } = props;
   const [formTransaction, setFormTransaction] = useState({ value: '', description: '' });
   const navigate = useNavigate();
   const params = useParams();
-  let { token } = useContext(CONTEXT);
+  let { token } = useContext(generalContexts);
   const [loading, setLoading] = useState(false);
 
   if (!token) token = localStorage.getItem('localToken');
