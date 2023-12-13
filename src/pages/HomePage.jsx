@@ -1,31 +1,41 @@
-import styled from "styled-components"
-import { BiExit } from "react-icons/bi"
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import CONTEXT from "../context/context";
-import dayjs from "dayjs";
+/* eslint-disable no-console */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable consistent-return */
+/* eslint-disable no-undef */
+/* eslint-disable prefer-const */
+/* eslint-disable react/prop-types */
+import styled from 'styled-components';
+import { BiExit } from 'react-icons/bi';
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import dayjs from 'dayjs';
+import generalContexts from '../context/context';
 
 export default function HomePage(props) {
   const { setData, data } = props;
   const navigate = useNavigate();
-  let { setTocken } = useContext(CONTEXT);
-  if (!token) token = localStorage.getItem('localToken')
+  let { setTocken } = useContext(generalContexts);
+  if (!token) token = localStorage.getItem('localToken');
 
   const config = {
     headers: {
-      authorization: `Bearer ${token}`
-    }
-  }
+      authorization: `Bearer ${token}`,
+    },
+  };
 
   useEffect(() => {
     if (!token) return navigate('/');
     axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(erro => console.log(erro));
+      .catch((erro) => console.log(erro));
   }, []);
 
   function exit() {
@@ -38,7 +48,11 @@ export default function HomePage(props) {
   return (
     <HomeContainer>
       <Header>
-        <h1 data-test="user-name" >Olá, {data.name}</h1>
+        <h1 data-test="user-name">
+          Olá,
+          {' '}
+          {data.name}
+        </h1>
         <BiExit onClick={exit} data-test="logout" />
       </Header>
 
@@ -51,8 +65,9 @@ export default function HomePage(props) {
                 <strong data-test="registry-name">{data.description}</strong>
               </div>
               <Value
-                $color={data.typeTransaction === 'saida' ? "negative" : 'positive'}
-                data-test="registry-amount">
+                $color={data.typeTransaction === 'saida' ? 'negative' : 'positive'}
+                data-test="registry-amount"
+              >
                 {
                   data.value
                 }
@@ -64,7 +79,8 @@ export default function HomePage(props) {
           <strong>SALDO</strong>
           <Value
             $color={data.balance >= 0 ? 'positive' : 'negative'}
-            data-test="total-amount">
+            data-test="total-amount"
+          >
             {
               data.balance.toFixed(2).replace('.', ',').replace('-', '')
             }
@@ -73,28 +89,39 @@ export default function HomePage(props) {
       </TransactionsContainer>
 
       <ButtonsContainer>
-        <Link to={`/nova-transacao/entrada`} className="buttonLink" data-test="new-income">
-          <button >
+        <Link to="/nova-transacao/entrada" className="buttonLink" data-test="new-income">
+          <button>
             <AiOutlinePlusCircle />
-            <p>Nova <br /> entrada</p>
+            <p>
+              Nova
+              {' '}
+              <br />
+              {' '}
+              entrada
+            </p>
           </button>
         </Link>
-        <Link to={'/nova-transacao/saida'} className="buttonLink" data-test="new-expense">
+        <Link to="/nova-transacao/saida" className="buttonLink" data-test="new-expense">
           <button>
             <AiOutlineMinusCircle />
-            <p>Nova <br />saída</p>
+            <p>
+              Nova
+              {' '}
+              <br />
+              saída
+            </p>
           </button>
         </Link>
       </ButtonsContainer>
     </HomeContainer>
-  )
+  );
 }
 
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 50px);
-`
+`;
 const Header = styled.header`
   display: flex;
   align-items: center;
@@ -103,7 +130,7 @@ const Header = styled.header`
   margin-bottom: 15px;
   font-size: 26px;
   color: white;
-`
+`;
 const TransactionsContainer = styled.article`
   //border: 1px solid;
   overflow-y: auto;
@@ -123,7 +150,7 @@ const TransactionsContainer = styled.article`
       text-transform: uppercase;
     }
   }
-`
+`;
 const ButtonsContainer = styled.section`
   margin-top: 15px;
   margin-bottom: 0;
@@ -142,12 +169,12 @@ const ButtonsContainer = styled.section`
       font-size: 18px;
     }
   }
-`
+`;
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.$color === "positive" ? "green" : "red")};
-`
+  color: ${(props) => (props.$color === 'positive' ? 'green' : 'red')};
+`;
 const ListItemContainer = styled.li`
   display: flex;
   justify-content: space-between;
@@ -159,4 +186,4 @@ const ListItemContainer = styled.li`
     color: #c6c6c6;
     margin-right: 10px;
   }
-`
+`;
