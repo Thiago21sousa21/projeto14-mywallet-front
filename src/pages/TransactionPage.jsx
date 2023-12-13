@@ -43,6 +43,7 @@ export default function TransactionsPage(props) {
       setData(atualizaTransactions.data);
       navigate('/home');
     } catch (erro) {
+      setLoading(false);
       alert(erro.response.data);
     }
   }

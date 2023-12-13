@@ -35,6 +35,7 @@ export default function SignUpPage() {
       alert('cadastro criado com sucesso! Agora é so fazer login!');
       navigate('/');
     } catch (erro) {
+      setLoading(false);
       console.log('falhou o cadastro', erro);
       alert(erro.response.data);
     }

@@ -30,6 +30,7 @@ export default function SignInPage() {
       setFormLogin({ email: '', password: '' });
       navigate('/home');
     } catch (erro) {
+      setLoading(false);
       alert(erro.response.data);
     }
   }
