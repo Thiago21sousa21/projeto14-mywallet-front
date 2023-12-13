@@ -28,7 +28,10 @@ export default function SignUpPage() {
   async function sendData(event) {
     event.preventDefault();
     setLoading(true);
-    if (valuesForm.password !== valuesForm.confirm) return alert('as senhas precisam ser iguais!');
+    if (valuesForm.password !== valuesForm.confirm) {
+      setLoading(false);
+      return alert('as senhas precisam ser iguais!');
+    }
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name: valuesForm.name, email: valuesForm.email, password: valuesForm.password });
       setLoading(false);

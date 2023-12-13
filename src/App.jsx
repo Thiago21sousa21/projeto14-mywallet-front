@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/react-in-jsx-scope */
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import styled from "styled-components"
-import { useState } from "react"
-import HomePage from "./pages/HomePage"
-import SignInPage from "./pages/SignInPage"
-import SignUpPage from "./pages/SignUpPage"
-import TransactionsPage from "./pages/TransactionPage"
-import CONTEXT from './context/context'
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
+import { useState } from 'react';
+import HomePage from './pages/HomePage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import TransactionsPage from './pages/TransactionPage';
+import CONTEXT from './context/context';
 
 export default function App() {
   const [data, setData] = useState('loading...');
   const [token, setToken] = useState('');
   return (
-    <CONTEXT.Provider value={{ token, setToken }} >
+    <CONTEXT.Provider value={{ token, setToken }}>
       <PagesContainer>
         <BrowserRouter>
           <Routes>
@@ -26,7 +25,7 @@ export default function App() {
         </BrowserRouter>
       </PagesContainer>
     </CONTEXT.Provider>
-  )
+  );
 }
 
 const PagesContainer = styled.main`
@@ -34,4 +33,4 @@ const PagesContainer = styled.main`
   width: calc(100vw - 50px);
   max-height: 100vh;
   padding: 25px;
-`
+`;

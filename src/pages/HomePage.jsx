@@ -20,7 +20,7 @@ import generalContexts from '../context/context';
 export default function HomePage(props) {
   const { setData, data } = props;
   const navigate = useNavigate();
-  let { setTocken } = useContext(generalContexts);
+  let { setToken, token } = useContext(generalContexts);
   if (!token) token = localStorage.getItem('localToken');
 
   const config = {
@@ -39,7 +39,7 @@ export default function HomePage(props) {
   }, []);
 
   function exit() {
-    setTocken('');
+    setToken('');
     localStorage.removeItem('localToken');
     navigate('/');
   }
