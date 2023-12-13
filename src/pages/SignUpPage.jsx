@@ -11,15 +11,12 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-
-
   function updateValuesInputs(event) {
     const { id, value } = event.target;
     const newValuesForm = { ...valuesForm };
     newValuesForm[id] = value;
     setValuesForm(newValuesForm);
   }
-
 
   async function sendData(event) {
     event.preventDefault();
@@ -36,8 +33,6 @@ export default function SignUpPage() {
       alert(erro.response.data);
     }
   }
-
-
 
   return (
     <SingUpContainer>
@@ -69,9 +64,7 @@ export default function SignUpPage() {
           minLength={3}
           required
         />
-
         {loading ? <ThreeDots /> : <button data-test="sign-up-submit" >Cadastrar</button>}
-
       </form>
 
       <Link to={'/'}>

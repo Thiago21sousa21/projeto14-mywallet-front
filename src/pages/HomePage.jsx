@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 export default function HomePage(props) {
   const { setData, data } = props;
   const navigate = useNavigate();
-  let { token } = useContext(CONTEXT);
+  let { setTocken } = useContext(CONTEXT);
   if (!token) token = localStorage.getItem('localToken')
 
   const config = {
@@ -29,7 +29,7 @@ export default function HomePage(props) {
   }, []);
 
   function exit() {
-    token = '';
+    setTocken('');
     localStorage.removeItem('localToken');
     navigate('/');
   }
@@ -72,7 +72,6 @@ export default function HomePage(props) {
         </article>
       </TransactionsContainer>
 
-
       <ButtonsContainer>
         <Link to={`/nova-transacao/entrada`} className="buttonLink" data-test="new-income">
           <button >
@@ -87,7 +86,6 @@ export default function HomePage(props) {
           </button>
         </Link>
       </ButtonsContainer>
-
     </HomeContainer>
   )
 }

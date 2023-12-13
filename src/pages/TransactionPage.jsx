@@ -19,6 +19,7 @@ export default function TransactionsPage(props) {
   useEffect(() => {
     if (!token) return navigate('/');
   }, []);
+
   const config = {
     headers: {
       authorization: `Bearer ${token}`
@@ -63,10 +64,7 @@ export default function TransactionsPage(props) {
           data-test="registry-name-input"
           required
         />
-
         {loading ? <ThreeDots /> : <button data-test="registry-save">Salvar TRANSAÇÃO</button>}
-
-
       </form>
     </TransactionsContainer>
   )
