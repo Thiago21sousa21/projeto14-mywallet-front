@@ -1,9 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable no-alert */
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-extraneous-dependencies */
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';

@@ -1,9 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-alert */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';

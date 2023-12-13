@@ -1,7 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-alert */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable import/no-extraneous-dependencies */
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';

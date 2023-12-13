@@ -1,13 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-shadow */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable consistent-return */
-/* eslint-disable no-undef */
-/* eslint-disable prefer-const */
-/* eslint-disable react/prop-types */
 import styled from 'styled-components';
 import { BiExit } from 'react-icons/bi';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
