@@ -32,6 +32,5 @@ realizando adições ou subtrações com base nas entradas dos usuários.
 # Como rodar via docker
 
 - Baixe a imagem: docker pull thiago21sousa21/my-wallet
-- execute o run: docker run -d -e VITE_API_URL=https://projeto14-mywallet-back-gvuz.onrender.com/ -p 3000:80 thiago21sousa21/my-wallet
-- Por padrão ele roda na porta 80;
-- Você deve configurar uma variavel de ambiente VITE_API_URL para requisições, voce pode baixar a API em: https://github.com/Thiago21sousa21/projeto14-mywallet-back ou usar o link de deploy dela: https://projeto14-mywallet-back-gvuz.onrender.com/
+- execute o run: docker run -d -p 3000:80 thiago21sousa21/my-wallet
+- Por padrão ele roda na porta 80.
